@@ -23,7 +23,7 @@ class App extends Component {
         </nav>
         <div role="main">
           <Route path="/home" render={props => <HomePage appState={this.state} getCats={actions.getCats.bind(null, this)} {...props} />} />
-          <Route path="/cats/:id" render={props => <CatPage appState={this.state} getCat={actions.getCat.bind(null, this)} {...props} />} />
+          <Route path="/cats/:id" render={props => <CatPage appState={this.state} setSelectedCatId={actions.setSelectedCatId.bind(null, this)} getCat={actions.getCat.bind(null, this)} {...props} />} />
         </div>
       </div>
     );

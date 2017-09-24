@@ -7,6 +7,13 @@ const updateState = function(component, nextState) {
 }
 
 export default {
+  setSelectedCatId: async (component, selectedCatId) => {
+    return updateState(component, prevState => ({
+      ...prevState,
+      selectedCatId
+    }));
+  },
+
   getCats: async component => {
     const cats = await api.getCats();
     const normalizedCats = cats.reduce((cats, cat) => {
@@ -26,11 +33,6 @@ export default {
   },
 
   getCat: async (component, id) => {
-    await updateState(component, prevState => ({
-      ...prevState,
-      selectedCatId: id,
-    }));
-
     const cat = await api.getCat(id);
 
     const entities = component.state.entities || {};

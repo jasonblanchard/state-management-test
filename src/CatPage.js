@@ -3,6 +3,7 @@ import selectors from './selectors';
 
 export default class CatPage extends Component {
   componentDidMount() {
+    this.props.setSelectedCatId(this.props.match.params.id);
     this.props.getCat(this.props.match.params.id);
   }
 
