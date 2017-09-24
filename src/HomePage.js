@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 export default class HomePage extends Component {
   componentDidMount() {
-    this.props.getCats();
+    this.props.appActions.getCats();
   }
 
   render() {

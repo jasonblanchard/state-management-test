@@ -6,6 +6,15 @@ import CatPage from './CatPage';
 import actions from './actions';
 import './App.css';
 
+function connectToAppState(context, Page, props = {}, actions = {}) {
+  const boundActions = Object.keys(actions).reduce((boundActions, action) => {
+    boundActions[action] = actions[action].bind(null, context);
+    return boundActions;
+  }, {});
+
+  return <Page appState={context.state} appActions={boundActions} {...props} />
+}
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -22,8 +31,8 @@ class App extends Component {
           </ul>
         </nav>
         <div role="main">
-          <Route path="/home" render={props => <HomePage appState={this.state} getCats={actions.getCats.bind(null, this)} {...props} />} />
-          <Route path="/cats/:id" render={props => <CatPage appState={this.state} setSelectedCatId={actions.setSelectedCatId.bind(null, this)} getCat={actions.getCat.bind(null, this)} {...props} />} />
+          <Route path="/home" render={props => connectToAppState(this, HomePage, props, { getCats: actions.getCats }) } />
+          <Route path="/cats/:id" render={props => connectToAppState(this, CatPage, props, { setSelectedCatId: actions.setSelectedCatId, getCat: actions.getCat })} />
         </div>
       </div>
     );
