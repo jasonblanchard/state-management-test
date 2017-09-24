@@ -1,21 +1,14 @@
 import React, { Component } from 'react';
-import actions from './actions';
 import selectors from './selectors';
 import { Link } from 'react-router-dom';
 
 export default class HomePage extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {};
-  }
-
   componentDidMount() {
-    actions.getCats(this);
+    this.props.getCats();
   }
 
   render() {
-    const cats = selectors.getCats(this.state);
+    const cats = selectors.getCats(this.props.appState);
 
     if (!cats) {
       return <div>loading...</div>

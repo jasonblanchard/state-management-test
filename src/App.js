@@ -3,6 +3,7 @@ import { Route } from 'react-router';
 import { Link } from 'react-router-dom';
 import HomePage from './HomePage';
 import CatPage from './CatPage';
+import actions from './actions';
 import './App.css';
 
 class App extends Component {
@@ -21,8 +22,8 @@ class App extends Component {
           </ul>
         </nav>
         <div role="main">
-          <Route path="/home" component={() => (<HomePage />)} />
-          <Route path="/cats/:id" component={CatPage} />
+          <Route path="/home" render={props => <HomePage appState={this.state} getCats={actions.getCats.bind(null, this)} {...props} />} />
+          <Route path="/cats/:id" render={props => <CatPage appState={this.state} getCat={actions.getCat.bind(null, this)} {...props} />} />
         </div>
       </div>
     );

@@ -14,24 +14,32 @@ export default {
       return cats;
     }, {});
 
-    return updateState(component, currentState => ({
-      ...currentState,
+    const entities = component.state.entities || {};
+    const catEntities = { ...entities.cats, ...normalizedCats };
+
+    return updateState(component, prevState => ({
+      ...prevState,
       entities: {
-        cats: normalizedCats
+        cats: catEntities
       }
     }));
   },
 
   getCat: async (component, id) => {
+    await updateState(component, prevState => ({
+      ...prevState,
+      selectedCatId: id,
+    }));
+
     const cat = await api.getCat(id);
 
-    return updateState(component, currentState => ({
-      ...currentState,
-      selectedCatId: cat.id,
+    const entities = component.state.entities || {};
+    const catEntities = { ...entities.cats, ...{[cat.id]: cat } };
+
+    return updateState(component, prevState => ({
+      ...prevState,
       entities: {
-        cats: {
-          [cat.id]: cat
-        }
+        cats: catEntities
       }
     }));
   }
