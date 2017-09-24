@@ -1,5 +1,11 @@
 import api from './api';
 
+const updateState = function(component, nextState) {
+  return new Promise((resolve) => {
+    component.setState(nextState, () => resolve())
+  });
+}
+
 export default {
   getCats: async component => {
     const cats = await api.getCats();
@@ -8,7 +14,7 @@ export default {
       return cats;
     }, {});
 
-    component.setState(currentState => ({
+    return updateState(component, currentState => ({
       ...currentState,
       entities: {
         cats: normalizedCats
@@ -19,7 +25,7 @@ export default {
   getCat: async (component, id) => {
     const cat = await api.getCat(id);
 
-    component.setState(currentState => ({
+    return updateState(component, currentState => ({
       ...currentState,
       selectedCatId: cat.id,
       entities: {
