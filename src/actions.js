@@ -7,24 +7,24 @@ const updateState = function(component, nextState) {
 }
 
 export default {
-  setSelectedCatId: async (component, selectedCatId) => {
-    return updateState(component, prevState => ({
+  setSelectedCatId: function (selectedCatId) {
+    return updateState(this, prevState => ({
       ...prevState,
       selectedCatId
     }));
   },
 
-  getCats: async component => {
+  getCats: async function() {
     const cats = await api.getCats();
     const normalizedCats = cats.reduce((cats, cat) => {
       cats[cat.id] = cat;
       return cats;
     }, {});
 
-    const entities = component.state.entities || {};
+    const entities = this.state.entities || {};
     const catEntities = { ...entities.cats, ...normalizedCats };
 
-    return updateState(component, prevState => ({
+    return updateState(this, prevState => ({
       ...prevState,
       entities: {
         cats: catEntities
@@ -32,13 +32,13 @@ export default {
     }));
   },
 
-  getCat: async (component, id) => {
+  getCat: async function(id) {
     const cat = await api.getCat(id);
 
-    const entities = component.state.entities || {};
+    const entities = this.state.entities || {};
     const catEntities = { ...entities.cats, ...{[cat.id]: cat } };
 
-    return updateState(component, prevState => ({
+    return updateState(this, prevState => ({
       ...prevState,
       entities: {
         cats: catEntities

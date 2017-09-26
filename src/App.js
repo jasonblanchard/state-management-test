@@ -8,7 +8,7 @@ import './App.css';
 
 function connectToAppState(context, Page, props = {}, actions = {}) {
   const boundActions = Object.keys(actions).reduce((boundActions, action) => {
-    boundActions[action] = actions[action].bind(null, context);
+    boundActions[action] = actions[action].bind(context);
     return boundActions;
   }, {});
 
