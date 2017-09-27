@@ -26,9 +26,7 @@ export default {
 
     return updateState(this, prevState => ({
       ...prevState,
-      entities: {
-        cats: catEntities
-      }
+      entities: { ...this.state.entities, ...{ cats: catEntities } }
     }));
   },
 
@@ -40,9 +38,7 @@ export default {
 
     return updateState(this, prevState => ({
       ...prevState,
-      entities: {
-        cats: catEntities
-      }
+      entities: { ...this.state.entities, ...{ cats: catEntities } }
     }));
   }
 }

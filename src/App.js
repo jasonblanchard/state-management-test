@@ -19,7 +19,13 @@ class App extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = props.initialState;
+  }
+
+  componentWillReceiveProps(nextProps) {
+    // Can/should we merge in the new state?
+    // Can we leverage this to push in changes from outside the component hierarchy?
+    // Or is `props.initialState` truly just initial state when the component mounts?
   }
 
   render() {
