@@ -6,6 +6,7 @@ import ReactDOM from 'react-dom';
 
 // May be send from server on the `window` object or whatever. At this point, it should be a POJO.
 const initialAppState = {
+  authenticatedUserId: 1,
   entities: {
     users: {
       '1' :{

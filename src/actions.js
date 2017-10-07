@@ -40,5 +40,19 @@ export default {
       ...prevState,
       entities: { ...this.state.entities, ...{ cats: catEntities } }
     }));
+  },
+
+  login: async function() {
+    return updateState(this, prevState => ({
+      ...prevState,
+      authenticatedUserId: 1
+    }));
+  },
+
+  logout: async function() {
+    return updateState(this, prevState => ({
+      ...prevState,
+      authenticatedUserId: undefined
+    }));
   }
 }
