@@ -1,10 +1,13 @@
-import React, { Component } from 'react';
-import { Route } from 'react-router';
 import { Link } from 'react-router-dom';
-import HomePage from './HomePage';
-import CatPage from './CatPage';
+import { Route } from 'react-router';
+import React, { Component } from 'react';
+
 import actions from './actions';
+import bindMethods from './bindMethods';
+import CatPage from './CatPage';
+import HomePage from './HomePage';
 import selectors from './selectors';
+
 import './App.css';
 
 class App extends Component {
@@ -13,15 +16,8 @@ class App extends Component {
 
     this.state = props.initialState;
 
-    this.actions = Object.keys(actions).reduce((boundActions, action) => {
-      boundActions[action] = actions[action].bind(this);
-      return boundActions;
-    }, {});
-
-    this.selectors = Object.keys(selectors).reduce((boundSelectors, selector) => {
-      boundSelectors[selector] = selectors[selector].bind(this);
-      return boundSelectors;
-    }, {});
+    this.actions = bindMethods(this, actions);
+    this.selectors = bindMethods(this, selectors);
   }
 
   componentWillReceiveProps(nextProps) {
