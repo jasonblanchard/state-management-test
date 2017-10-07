@@ -14,8 +14,8 @@ export default {
     }));
   },
 
-  getCats: async function() {
-    const cats = await api.getCats();
+  fetchCats: async function() {
+    const cats = await api.fetchCats();
     const normalizedCats = cats.reduce((cats, cat) => {
       cats[cat.id] = cat;
       return cats;
@@ -30,8 +30,8 @@ export default {
     }));
   },
 
-  getCat: async function(id) {
-    const cat = await api.getCat(id);
+  fetchCat: async function(id) {
+    const cat = await api.fetchCat(id);
 
     const entities = this.state.entities || {};
     const catEntities = { ...entities.cats, ...{[cat.id]: cat } };

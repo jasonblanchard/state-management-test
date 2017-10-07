@@ -4,22 +4,24 @@ import { Link } from 'react-router-dom';
 import HomePage from './HomePage';
 import CatPage from './CatPage';
 import actions from './actions';
+import selectors from './selectors';
 import './App.css';
-
-function connectToAppState(context, Page, props = {}, actions = {}) {
-  const boundActions = Object.keys(actions).reduce((boundActions, action) => {
-    boundActions[action] = actions[action].bind(context);
-    return boundActions;
-  }, {});
-
-  return <Page appState={context.state} appActions={boundActions} {...props} />
-}
 
 class App extends Component {
   constructor(props) {
     super(props);
 
     this.state = props.initialState;
+
+    this.actions = Object.keys(actions).reduce((boundActions, action) => {
+      boundActions[action] = actions[action].bind(this);
+      return boundActions;
+    }, {});
+
+    this.selectors = Object.keys(selectors).reduce((boundSelectors, selector) => {
+      boundSelectors[selector] = selectors[selector].bind(this);
+      return boundSelectors;
+    }, {});
   }
 
   componentWillReceiveProps(nextProps) {
@@ -37,8 +39,8 @@ class App extends Component {
           </ul>
         </nav>
         <div role="main">
-          <Route path="/home" render={props => connectToAppState(this, HomePage, props, { getCats: actions.getCats }) } />
-          <Route path="/cats/:id" render={props => connectToAppState(this, CatPage, props, { setSelectedCatId: actions.setSelectedCatId, getCat: actions.getCat })} />
+          <Route path="/home" render={props => <HomePage {...props} cats={this.selectors.getCats()} fetchCats={this.actions.fetchCats} />} />
+          <Route path="/cats/:id" render={props => <CatPage cat={this.selectors.getSelectedCat()} {...props} setSelectedCatId={this.actions.setSelectedCatId} fetchCat={this.actions.fetchCat} /> } />
         </div>
       </div>
     );

@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
-import selectors from './selectors';
 
 export default class CatPage extends Component {
   componentDidMount() {
-    this.props.appActions.setSelectedCatId(this.props.match.params.id);
-    this.props.appActions.getCat(this.props.match.params.id);
+    this.props.setSelectedCatId(this.props.match.params.id);
+    this.props.fetchCat(this.props.match.params.id);
   }
 
   render() {
-    const cat = selectors.getSelectedCat(this.props.appState);
+    const cat = this.props.cat
     if (!cat) {
       return (
         <div>Loading...</div>

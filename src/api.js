@@ -17,8 +17,8 @@ const cats = [
 ]
 
 export default {
-  getCats: () => {
-    console.log('API getCats');
+  fetchCats: () => {
+    console.log('API fetchCats');
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         return resolve(cats);
@@ -26,8 +26,8 @@ export default {
     });
   },
 
-  getCat: id => {
-    console.log('API getCat');
+  fetchCat: id => {
+    console.log('API fetchCat');
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         const cat = cats.find(cat => cat.id === Number(id));
