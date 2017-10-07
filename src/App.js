@@ -40,7 +40,7 @@ class App extends Component {
         </nav>
         <div role="main">
           <Route path="/home" render={props => <HomePage {...props} cats={this.selectors.getCats()} fetchCats={this.actions.fetchCats} />} />
-          <Route path="/cats/:id" render={props => <CatPage cat={this.selectors.getSelectedCat()} {...props} setSelectedCatId={this.actions.setSelectedCatId} fetchCat={this.actions.fetchCat} /> } />
+          <Route path="/cats/:id" render={props => <CatPage {...props} cat={this.selectors.getSelectedCat()} setSelectedCatId={this.actions.setSelectedCatId} fetchCat={this.actions.fetchCat} /> } />
         </div>
       </div>
     );
