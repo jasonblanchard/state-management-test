@@ -39,9 +39,37 @@ class App extends Component {
           </ul>
         </nav>
         <div role="main">
-          <Route path="/home" render={props => <HomePage {...props} cats={this.selectors.getCats()} fetchCats={this.actions.fetchCats} />} />
-          <Route path="/cats/:id" render={props => <CatPage {...props} cat={this.selectors.getSelectedCat()} setSelectedCatId={this.actions.setSelectedCatId} fetchCat={this.actions.fetchCat} /> } />
-          <AuthenticatedRoute path="/protected" authenticatedUserId={this.state.authenticatedUserId} render={props => <ProtectedPage {...props } logout={this.actions.logout} />} />
+          <Route
+            path="/home"
+            render={props => (
+              <HomePage
+                {...props}
+                cats={this.selectors.getCats()}
+                fetchCats={this.actions.fetchCats}
+              />
+            )}
+          />
+          <Route
+            path="/cats/:id"
+            render={props => (
+              <CatPage
+                {...props}
+                cat={this.selectors.getSelectedCat()}
+                setSelectedCatId={this.actions.setSelectedCatId}
+                fetchCat={this.actions.fetchCat}
+              />
+            )}
+          />
+          <AuthenticatedRoute
+            path="/protected"
+            authenticatedUserId={this.state.authenticatedUserId}
+            render={props => (
+              <ProtectedPage
+                {...props }
+                logout={this.actions.logout}
+              />
+            )}
+          />
         </div>
       </div>
     );
